@@ -127,11 +127,17 @@ def webhook_handler():
                         "source": "state_init",
                         "dest": "state_routine"
                     },
+                    {
+                        "trigger": "one_query",
+                        "source": "state_query",
+                        "dest": "state_query"
+                    },
                 ],
                 initial=state,
                 auto_transitions=False,
                 show_conditions=True,
             )
+            new_machine.get_graph().draw("fsm.png", prog="dot", format="png")
             machine[event.source.sender_id] = new_machine
 
         state = machine[event.source.sender_id].state
@@ -144,6 +150,7 @@ def webhook_handler():
                 response = machine[event.source.sender_id].to_state_init(event)
             else:
                 send_text_message(event.source.sender_id, event.message.text)
+                response = machine[event.source.sender_id].one_query(event)
 
         elif event.message.text == 'routine':
             response = machine[event.source.sender_id].to_state_routine(event)

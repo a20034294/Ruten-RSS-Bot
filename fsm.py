@@ -39,8 +39,11 @@ class TocMachine(Crawler, GraphMachine):
         reply_token = event.source.sender_id
         send_text_message(reply_token, "query")
 
-        # message = self.crawler.query()
-        # send_text_message(reply_token, message)
+        if event.message.text == 'query':
+            return
+
+        message = self.crawler.query(event.message.text)
+        send_text_message(reply_token, message)
 
         # self.to_state_init(event)
 
