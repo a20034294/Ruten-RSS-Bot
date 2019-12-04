@@ -5,6 +5,7 @@ __pycache__/
 *.swp
 sessions/*
 *.db
+chromedriver
 
 # C extensions
 *.so
