@@ -110,7 +110,7 @@ def webhook_handler():
                 state = f.readline()
 
             new_machine = TocMachine(crawler,
-                states=["state_init", "state_query", "state_routine"],
+                states=["state_init", "state_query", "state_routine", "state_querying"],
                 transitions=[
                     {
                         "trigger": "to_state_init",
@@ -130,6 +130,11 @@ def webhook_handler():
                     {
                         "trigger": "one_query",
                         "source": "state_query",
+                        "dest": "state_querying"
+                    },
+                    {
+                        "trigger": "compelete_query",
+                        "source": "state_querying",
                         "dest": "state_query"
                     },
                 ],
@@ -149,9 +154,10 @@ def webhook_handler():
             if event.message.text == 'exit':
                 response = machine[event.source.sender_id].to_state_init(event)
             else:
-                send_text_message(event.source.sender_id, event.message.text)
+                send_text_message(event.source.sender_id, 'crawlering please wait')
                 response = machine[event.source.sender_id].one_query(event)
-
+        elif state == 'state_querying':
+            send_text_message(event.source.sender_id, 'crawlering please wait')
         elif event.message.text == 'routine':
             response = machine[event.source.sender_id].to_state_routine(event)
         elif event.message.text == 'query':

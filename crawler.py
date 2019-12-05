@@ -39,13 +39,13 @@ class Crawler():
             titles = driver.find_elements_by_xpath('//*[@id="ProdGridContainer"]/dl/dd/dl/dd/div/h5/a')
             for title in titles:
                 ban_flag = False
-                if title.get_attribute('href') in db:
-                    continue
+                #if title.get_attribute('href') in db:
+                #    continue
                 print(title.get_attribute('innerHTML'))
                 print(title.get_attribute('href'))
-                with io.open(path + 'ruten.db', 'a') as f:
-                    f.write(title.get_attribute('href') + '\n')
-                    send_content = send_content + title.get_attribute('innerHTML') + '\n' + title.get_attribute('href') + '\n\n'
+                #with io.open(path + 'ruten.db', 'a') as f:
+                #    f.write(title.get_attribute('href') + '\n')
+                send_content = send_content + title.get_attribute('innerHTML') + '\n' + title.get_attribute('href') + '\n\n'
 
 
         if ban_flag == True:
