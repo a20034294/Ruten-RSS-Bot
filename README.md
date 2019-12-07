@@ -63,7 +63,7 @@ Or You can use [servo](http://serveo.net/) to expose local servers to the intern
 
 
 ## Finite State Machine
-![fsm](./img/show-fsm.png)
+![fsm](./fsm.png)
 
 ## Usage
 可以即時查詢露天，並且不會看到什麼海外或是樂天的奇怪商品
